@@ -1,0 +1,44 @@
+#!/bin/sh
+# This script is used to start bet (FSL's brain extraction tool)
+# on GNU/Linux or UNIX platforms in a mode that writes paired hdr/img
+# NIfTI format files compatible with SPM.
+#
+# Version History:
+# 2013-04-05: Avoid problems when existing LD_LIBRARY_PATH conflicts with fsl requirements
+# 2013-03-26: Original version by David Abbott
+#
+#
+# The following default directory is used if the FSLDIR environment variable 
+# is not set. If this is not suitable then you can either set FSLDIR in
+# your shell settings file (e.g. .cshrc or .bashrc), or change the default below:
+
+default_FSL_DIR='/usr/local/fsl'
+
+if [ -z "$FSLDIR" ] ; then
+	FSLDIR="$default_FSL_DIR"
+	echo "FSLDIR was not set - assuming $FSLDIR"
+fi
+
+cd $FSLDIR
+echo -n "Using fsl in: "
+pwd 
+echo -n "Current working directory is: "
+cd - ;
+
+# load default configuration
+if [ -f "${FSLDIR}/etc/fslconf/fsl.sh" ] ; then
+        echo Found "${FSLDIR}/etc/fslconf/fsl.sh" ;
+# First clear LD_LIBRARY_PATH in case entries conflict with fsl:
+	LD_LIBRARY_PATH='';
+# The following should set LD_LIBRARY_PATH to suit fsl:
+	. "${FSLDIR}/etc/fslconf/fsl.sh" ;
+fi
+
+# Force NIFTI_PAIR output filetype to ensure SPM compatibility:
+FSLOUTPUTTYPE=NIFTI_PAIR
+
+export FSLDIR LD_LIBRARY_PATH FSLOUTPUTTYPE
+
+echo $FSLDIR/bin/bet $*
+$FSLDIR/bin/bet $*
+

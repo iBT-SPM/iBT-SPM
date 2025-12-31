@@ -1,0 +1,657 @@
+
+Recent changes to iBT
+---------------------
+(* = public release)
+
+Notes for users upgrading from iBT 3.x: 
+ - If you placed a copy of ibt.m in your SPM distribution, please update it
+   with the one in this release, as the path to the toolbox folder has changed.
+ - Old runinfo files remain compatible. However, we recommend using one of
+   the new runinfo templates if you are setting up a new analysis.
+
+2025-12-30 (v4.0)*:(dfa): 
+Added optional iBT.what.disp.output_subfolder
+Support locating and copying anatomy file from fMRIPrep
+  via new iBT.who.sub{sub}.sess{ses}.wild.[r,n]_inputAnat(assumed to be in
+  anat folder at same level as func folder (i.e. in ../anat/ relative to 
+  iBT.who.sub{sub}.sess{ses}.rawloc)
+Exit with error if SPM.mat already exists and iBT.what.stats.clobber is 
+  not set or zero.
+More robust file path handling for changes introduced in v4.0beta08.
+Various runinfo template improvements. 
+
+2025-11-09 (v4.0beta08)*:(dfa):
+Improved TR detection for SPM DICOM converted
+ images via metadata saved as JSON with option iBT.what.pre.DICOMconvert = 2
+Updated template runinfo files: runinfo_own and runinfo_normLegacy have
+ settings for own-space and legacy spatially normalised analyses
+ respectively, without any additional software requirements. 
+Updated README_iBT.txt and README_known_bugs.txt for public release.
+
+2025-09-25 (v4.0beta07):(dfa):
+Added missing iBT.what.stats.denoised.adjust_erdf to runinfo_fMRIPrep*.m
+
+2025-03-26 (v4.0beta06):(dfa)
+Added ibt_update_spm_paths to easily modify paths saved in an SPM.mat file, 
+  useful if you have moved an existing analysis or data to a new location.
+
+2025-01-16 (v4.0beta05):(dfa)
+Correct mean filename for display of fmriprep 'norm' analysis
+Improved some comments.
+
+2024-10-30 (v4.0beta05 progress):(dfa)
+Updated runinfo_fMRIPrep* templates to utilise and document latest iBT features,
+  including those suitable for analyzing fMRIprep output.
+Added 'Explicit' mask option to iBT.what.stats.r_withinBrainMask
+  and iBT.what.stats.n_withinBrainMask to then utilise new session-specific 
+  explicit mask wildcards iBT.who.sub{sub}.sess{ses}.wild.r_ExplicitMask
+  and iBT.who.sub{sub}.sess{ses}.wild.n_ExplicitMask, respectively.
+Now no need to change iBT.what.disp.orient.slices in legacy
+  runinfos to preserve previous sagittal slice order behaviour.
+  Specifically, if the deprecated iBT.what.disp.revflip is defined, 
+  then display the requested sagittal slices from iBT.what.disp.orient.slices 
+  in reverse order, to result in a display order for legacy runinfos  
+  simlar to that experienced with iBT version 3.x (the change in iBT 4.x
+  then being just the displayed sign of the sagittal slice labels
+  (now consistent with MNI), without a change to slice order).
+  Note: In new runinfos, using iBT.what.disp.orient.LeftOnRight, the
+  sagittal order will need to be changed compared to legacy runinfos
+  to yield a similar slice ordering (in iBT.what.disp.orient.slices).
+Added option: iBT.what.li.lowNpercentValid
+Bugfix: Prevent crash if there are no laterality index control data 
+        files inside the LI control data folder.
+Updated version guidance: SPM12 revision 7771 was used in testing
+  this iBT release. Legacy SPM8 is untested but still likely to work. 
+  Support for SPM5 and SPM2 is untested and deprecated; legacy code
+   supporting SPM5 and SPM2 may be removed soon.
+
+2024-08-04 (v4.0beta04):(dfa)
+Implemented iBT.what.disp.orient.AnteriorOnRight
+ option (default 'no') and fixed a sagittal display clipping
+ problem introduced with changes on 2024-06-22.
+2024-08-02: (bt) Prevent SPM welcome screen obscuring some 
+                 display output when running headless
+2024-08-01 (v4.0beta03):(mfb,dfa) 
+Replaced iBT.what.stats.configureDesign with
+ iBT.what.stats.design.configure, and added new
+ iBT.what.stats.design.savePreliminaryFig
+ Bugfix: Previously, only the preliminary design figure was being
+  saved; if additional iBT orthogonalisation was performed
+  this was not reflected in the saved design figure.
+  Filename changes: *_design.* -> *_preliminary_design.* and, 
+    for the final design that is actually used: *_ibt_design.* 
+2024-07-11 (v4.0beta02): (mfb, dfa)
+  New orthogonalisation option 4.1, like 4 but skip session constant 
+
+2024-06-24 (v4.0beta01): (dfa) Re-branded toolbox name as iBT
+  in preparation for OHBM2024 presentation and next public release.
+  Users who have placed a copy of ibt.m in their SPM distribution
+   will need to update it, as iBT is now stored in a folder called iBT
+   rather than iBrainTools
+
+2024-06-23 (v3.9alpha16): (dfa)
+Bugfix: "Left|Right is top" labels were incorrect on sagittal
+  display when step sign of iBT.what.disp.orient.slices
+  was changed to a positive value (label was correct
+  for default negative step sizes). Users of prior
+  iBT versions who generated sagittal montages with a
+  positive step size are urged to regenerate these.
+  The text is now "Left|Right is 1st top" so can tell
+  new montages from old.
+Bugfix: Sagittal display signs were not following MNI 
+  convention if iBT.what.disp.revflip was 'yes'.
+Replaced iBT.what.disp.revflip with more flexible:
+	iBT.what.disp.orient.LeftOnRight (implemented) &
+	iBT.what.disp.orient.AnteriorOnRight (coming soon)
+    (for old runinfo files with revflip, this is auto-translated
+	 to these new variables for backwards compatibility)
+Added iBT.what.disp.orient.showText so that users can
+  disable orientation text if their input images 
+  do not conform to Talairach / MNI convention, where
+  positive is subject right, anterior or superior.
+  (if users need labels for non-conformant orientations
+   then please let us know and we might implement override options)
+Added warning if iBT.what.disp.revOrder is defined,
+  as it was long deprecated and ignored (slice ordering
+  is governed by iBT.what.disp.orient.slices)
+Improved handling of iBT.what.disp.output_parent_folder
+  so top level common elements of source and destination path
+  are not duplicated within the destination.
+Tidied up consistency of runinfo templates.
+
+2024-05-28 (v3.9alpha15): (dfa)
+Bugfix: Don't try to plot the P value calculation point on 
+  a laterality plot when there is not a valid range for
+  which to calculate a P value
+Bugfix: Prevent crash if saving laterality results to a 
+  CSV file if loaded previously saved results from a matfile
+  
+2024-05-26 (v3.9alpha14): (dfa) 
+Bugfix: Support iBT.what.li.FullPlot.AllY when no control subjects
+
+2024-02-07 (v3.9alpha13): (dfa) 
+New orthogonalisation option 2.1, like 2 but skip very last regressor 
+
+2023-11-24 (v3.9alpha12): (dfa)
+Ensure laterality routine is called if iBT.what.li.li_only == 1
+ regardless of iBT.what.stats.norm (to fix a bug introduced on
+ 2020-04-19 (v3.8h) which fails for runinfo_li_template.m) 
+
+2022-08-05 (v3.9alpha11): (dfa)
+Fix crash that occurred if attempted to use 
+confounds_fmriprep columns that begin with 'n/a'
+(such as occurs for derivative columns).
+
+2022-05-17 (v3.9alpha10): (dfa)
+Fixed broken iBT.what.stats.fc.put_first logic (bug introduced in v3.9alpha09)
+
+2022-05-03 (v3.9alpha09): (dfa)
+Added iBT.what.stats.fc.put_first to allow functional connectivity regressors
+ to be put first rather than last in the design matrix. The default remains
+ last. Depending on the application, if you change this consider also whether
+ the setting of iBT.what.stats.orth_regressors is appropriate. 
+
+2022-02-15 (v3.9alpha08): (dfa)
+Save design matrix in .png and MATLAB .fig formats 
+ (in addition to existing PostScript .ps format)
+
+2021-10-14 (v3.9alpha07): (dfa) 
+Fix backwards compatibility for legacy
+   iBT.what.pre.wild.[slice realign] 
+2021-10-04 (v3.9alpha06): (dfa) 
+Support multiple runs in a single original data folder
+when pre-processing, via the following new session-specific
+variables:
+ iBT.who.sub{sub}.sess{ses}.wild.raw 
+ iBT.who.sub{sub}.sess{ses}.wild.input
+ iBT.who.sub{sub}.sess{ses}.wild.slice
+ iBT.who.sub{sub}.sess{ses}.wild.realign
+ Note: If these are not set, then fall back to the legacy
+ global iBT.what.pre.wild.[raw input slice realign]
+
+Note that legacy runinfo files typically set iBT.what.stats.r_wild
+and iBT.what.stats.n_wild to values based on iBT.what.pre.wild.raw
+so these will need to be modified if iBT.what.pre.wild.raw is removed.
+A future release might also allow session specific versions of these 
+wildcards, but for now the prepro folder should continue be set to
+be unique for each run, and the iBT.what.stats.r_wild strings should
+be general enough to support all runs (unlike the new 
+specific session wildcards above).
+e.g. iBT.what.stats.r_wild = 'sra*.img';	% wildcard for non-normalised images to analyse
+     iBT.what.stats.n_wild = 'swa*.img';	% wildcard for spatially-normalised images to analyse
+
+For consistency of naming, now use 
+ iBT.who.sub{sub}.sess{ses}.wild.confounds_fmriprep
+ instead of iBT.who.sub{sub}.sess{ses}.fmriprep.wild
+
+2021-08-06 (v3.9alpha05): (dfa) 
+Fix occurrence & occurred spelling (affects log files)
+Updated some documentation.
+
+2021-07-20 (v3.9alpha04): (dfa) 
+ Support multiple runinfo filespec arguments to chain
+  together runinfos, as follows: 
+ibt(filespec_part1, filespec_part2, ...)
+    Multi-file runinfo parts are chained together: Filenames matching each
+    argument are resolved and then the first analysis proceeds by chaining
+    together the first match from filespec_part1 and the first match
+    from filespec_part2 etc. That is, it acts as if the contents of
+    these first matching runinfos are concatenated. Once that analysis 
+    is complete, the next analysis proceeds by chaining the second match 
+    in each filespec (if any) and so on. 
+    If any of the filespecs match only one file, then that
+    file is used in every analysis. In this way, one can
+    utilise a single master runinfo with settings in common to
+    several analyses, specified for example as filespec_part1, and
+    then chain to it a much simpler runinfo containing only the relevant 
+    overrides to the master, specified as filespec_part2. Each filename
+    matching filespec_part2 would then execute as a separate analysis
+    chained to the single master runinfo.
+    Another potential use case would be to provide a common override to
+    multiple runinfos. For example one could indicate
+    pre-processing of all runinfos has already been completed, without
+    having to edit every single runinfo.
+  
+2021-06-17 (v3.9alpha03): (dfa) 
+ Added support for direct use of any fmriprep regressors 
+  via:
+  	iBT.what.stats.Confounds_fmriprep.do ,
+	iBT.who.sub{sub}.sess{ses}.Confounds_fmriprep ,
+	and iBT.who.sub{sub}.sess{ses}.fmriprep.wild
+ Bug fix for basename provided to fslsplit (this bug was
+   mitigated when using fsl versions earlier than 6.0.4)
+ Change default suffix of fmriprep regressors file to 
+   also permit new confounds_timeseries.tsv nomenclature.
+
+2021-02-02 (v3.9alpha02): (dfa) 
+ Experimental support for parametric modulation by event heights
+ ( see iBT.who.sub{sub}.sess{ses}.heights and 
+       iBT.who.sub{sub}.sess{ses}.height_files )       
+ To avoid confusion now that parametric modulation by heights
+   is supported, renamed old iBT.what.stats.parametric_modulation
+   to iBT.what.stats.parametric_modulation_by_separation  
+ Replaced iBT.what.stats.onset_dur_type 
+   with iBT.what.stats.events.source
+     
+2020-11-10 (v3.8h): (dfa) 
+ Allow almost-rigid constraint for spatial normalisation 
+  to essentially re-orient own-space to template axes
+   ( via option iBT.what.pre.norm.do = 3 )
+ New iBT.what.pre.norm.tempLabel to provide a more 
+  descriptive display label for the target normalisation
+  template used (this is saved to the _header_info.txt file
+  in a field called n_templateLabel: )
+ New iBT.what.disp.structuralLabel
+ New iBT.what.disp.threshold.structural.low & high
+ and iBT.what.disp.threshold.structural.min & max
+ to limit or fix greyscale range of structural image display
+
+2020-07-07 (v3.8g): (dfa)
+ Indicate 'liT' in png filenames of an li-based T threshold
+
+2020-06-18 (v3.8f): (dfa)
+ Option to display askerisk on graph at point LI is calculated
+ 
+2020-06-08 (v3.8e): (dfa)
+ Added iBT.what.disp.show.LR
+ Tweaked display header text line spacing to stop crowding
+ Limit LI p-value display to 2 significant digits
+ Added a few new iBT.what.li.* laterality plot display options,
+ and made field naming more consistent in iBT.what.li.* 
+
+2020-05-26 (dfa)
+ Moved "Known issues & bugs" to a separate file README_known_bugs.txt 
+ and documented a proposed improvement to first value of derived
+ motion detection metrics.
+
+2020-05-24 (v3.8d): (dfa)
+ Updated the runinfo template files to include all the 
+ new features implemented since v3.7.
+ 
+ Added 'FramewiseDisplacement' option for scan-to-scan motion
+  detection. This metric is sensitive to both translations
+  and rotations (rather than just a change in distance).
+  See Power et al. (2012) doi:10.1016/j.neuroimage.2011.10.018 
+  and Power et al. (2014) doi:10.1016/j.neuroimage.2013.08.048
+ 
+2020-05-22 (v3.8c): (dfa) 
+ Added rudimentary support for input data from fmriprep.
+ ibt is now a function that accepts an optional filespec
+   argument. So, for example, one can now start Matlab and 
+   process all the runinfo files in the present directory 
+   with the following command:
+   matlab -r "ibt('runinfo\*.m');"
+ Added new iBT.what.li.* laterality plot display options.
+ Note: the runinfo files in this distribution have not yet
+  been updated for new features since version 3.7c.
+
+2020-04-26 (v3.8b): (dfa) 
+ Support iBT.what.disp.show.voxelSize (default 1 = yes),
+ Some new iBT.what.li.* laterality plot display options
+ Minor stability fixes
+
+2020-04-19 (v3.8a): (dfa) 
+ Support iBT.what.li.own.do & iBT.what.li.norm.do flags
+   so can turn off li.own.do and leave on li.norm.do in
+   a script that does both own and norm-space stats.
+ Support iBT.what.li.SummaryPlot.[a]typicalString so can
+   customise (including blanking) the plot conclusion.
+ Improved support for input data processed by other means,
+   including new iBT.what.pre.FSLsplit to input NIfTI files
+   and improved mean and mask filename selection when
+   not performing realignment in iBT.
+   Use iBT.what.pre.wild.input rather than ...wild.DICOM
+  
+2019-07-08 (v3.7c): (dfa) More robust to spaces in filepath,
+more frequent flushing of logfile, 
+
+2019-04-03 (v3.7b): (dfa) If you start iBT via the
+	ibt function (rather than the GUI), then ibt will 
+	first look for an iBT or bin folder or symbolic link
+	in the current working directory and switch to it if present.
+	This allows user selection of the toolbox version,
+	and/or customisation, without affecting other users
+	or projects on that system.
+	
+	Fixed a typo in a comment in iBT_version.m
+
+2019-01-29 (v3.7a)*: (dfa) Bugfix: crash caused by typo in
+	value of denoised_pick_adjustment in example runinfo
+	file.
+	
+2019-01-04 (v3.7)*: (dfa)
+ Change default slice timing target to middle slice 
+   (see iBT.what.pre.target_time and iBT.what.stats.SPM.xBF.T0 )
+ Support iBT.what.stats.MAT64bit  (Allows .mat files to 
+   include variables larger than 2GB on 64-bit computers)
+
+2018-09-26 (v3.6d): (dfa)
+ Support iBT.what.pre.mean, iBT.what.stats.denoised.adjust_erdf
+ Support iBT.what.ext.SPM,  iBT.what.ext.FSL and
+  iBT.what.ext.iB (image filename extensions)
+
+2018-02-02 (v3.6c)*: (dfa)
+ Fixed laterality summary plot x-axis label problem that occurred
+   when using Matlab versions R2014b and later. 
+ Added README_Laterality.txt to better explain usage of the laterality tools.
+ Other minor improvements to existing documentation and runinfo files.
+ 
+2017-12-23 (v3.6b): (dfa)
+ Changed default SPM prefer version in the runinfo template
+ files to SPM12  (I should have done that a while ago!).
+ 
+ Removed erroneous text causing a crash in runinfo_iBrain_template.m
+ 
+2017-10-30 (v3.6a): (dfa) 
+ Permit motion rejection even if motion regression is off.
+ 
+2017-06-02 (v3.6)*: (dfa) 
+ Analysis: Work around a new bug in SPM12 r6906 that causes a crash.
+ Rewrote the studylist reading code in runinfo files to support comments,
+    quoted filenames, SOCK_wildcard and auto-detected line-specific
+    field count.
+
+2016-08-29 (dfa)
+ Analysis: Log the names of onset and duration files used, if applicable.
+
+2016-05-30 (v3.5m): (dfa) 
+ Don't throw an error if can't find realignment parameters
+  when iBT.what.stats.mc.mp == 0.
+ Log Matlab version information.
+ Preparing for a new public release: Updated documentation and
+  copyright notices to reflect the amalgamation of the Brain Research
+  Institute with other institutes to form the Florey Institute of
+  Neuroscience and Mental Health.
+
+2015-11-11 (v3.5l): (dfa)
+ New iBT.what.stats.denoised.SOCK.adjust_erdf flag enables 
+  automatic reduction of degrees of freedom by
+  the number of SOCK regressors used in denoising.
+ Improved cross-platform compatibility of 
+  iBT.what.stats.data_link = 1.
+ Bugfix: when selecting multiple runinfos, settings were
+  cleared only prior to the first job, so contamination
+  of subsequent jobs could occur for variables not
+  explicitly set in those jobs.
+
+2015-10-29 (v3.5k): (dfa)
+ Replaced nanmean, nanmedian and nanstd calls with ibt_* functions
+  to avoid issues with bugs that could casue a crash in older SPM
+  releases, divide by zero messages, and MATLAB path order issues
+  affecting the version of nan functions actually called.
+
+2014-10-31 (v3.5j): (dfa)
+ Replaced timecourse regressor textread calls with textscan
+  as the former can miss the last line if no end of line char.
+
+2014-10-14 (v3.5i): (dfa)
+ Reversed some incomplete changes in v3.5h that could
+  cause crash due to failure to find the _header_info.txt file 
+  (restored iBT_display.m from v3.5g).
+
+2014-10-01 (v3.5h): (dfa)
+ Increase iBT window size to mitigate menu focus problems on
+   some systems with a buggy focus-follows-mouse implementation
+ Log the studylist name also to the analysis log file
+ Tried moving some code from iBT_display.m to a new separate
+ function (however this work was not completed - see v3.5i)
+
+2014-07-10 (v3.5g): (dfa)
+ Added iBT.who.sub{sub}.sess{ses}.denoised_pick_adjustment to allow
+  analysis of the denoised images when only subset of the
+  original preprocessed images were denoised (i.e. only a subset of
+  the acquisition run was of interest and denoising was performed just
+  on that subset).
+  
+2014-07-03 (v3.5f): (dfa)
+ Added support for analysing SOCK denoised images via
+  iBT.what.stats.denoised.do, .folder & .n_wild
+ Added new laterality option iBT.what.li.lowNpercentOffCeiling
+  to specify a minimum percentage of subjects that must have |LI| 
+  less than ceiling in the "valid" region of laterality curves. 
+  Also added ability to disable the Jarque-Bera normality test 
+  via iBT.what.li.jb_alpha
+
+2014-06-02 (v3.5e): (dfa)
+ Log the studylist name in the pre-processing log file 
+  (and in version 3.5h also log studylist name in the analysis log file)
+ Better error reporting if no files found from which to read header
+
+2014-03-19 (v3.5d)*: (dfa)
+ Bugfix: Fixed iBT.what.disp.contrast = 'auto' not omitting 
+         contrasts with -effect labels
+ Also improved documentation in runinfo files for iBT.what.disp.contrast
+
+2014-01-14 (v3.5c)*: (dfa)
+ New iBT.what.disp.ROI.* for semi-transparent ROI overlay
+
+2014-01-10 (v3.5b): (dfa)
+ New iBT.what.disp.invert to invert the colour scale (positive 
+   in cool colours, negative in warm) - this can be useful together 
+   with iBT.what.disp.contrast = '-effect' to maintain cool colours
+   for the positive tail of a negative effect.
+ Don't create maps with filenames or colour-scales implying negative values 
+   are present if they are of cluster-corrected SPM's (i.e. FWEc or FDRc)
+   as the images contain no negative values due to the tests being one-tailed.
+
+2013-12-09 (v3.5a): (dfa)
+ New iBT.what.disp.mc.rejLog (undocumented) and other minor improvements
+ 
+2013-11-26 (v3.5): (dfa)
+ Experimental support added for SPM12b (beta release 5731), but only in legacy
+   "old normalisation" mode so there is presently no advantage over SPM8.
+ New iBT.what.disp.together to permit simultaneous generation of both 
+   combined pos/neg images and separate pos &/or neg  images (separates 
+   will now have sign added to the filename).
+ Added iBT.what.disp.contrast = '-effect' option which is needed if 
+   cluster-corrected negative contrasts are required as presently
+   that is only available for the positive tail of a test.
+ Added a 4th option to iBT.what.stats.orth_regressors suitable for
+   conservative (regress out the noise first) analyses even when there
+   are delay and dispersion terms (does not regress out the delay and
+   dispersion first).
+ Bugfix: fixed crash when iBT.what.stats.orth_regressors == 3.
+ Bugfix: fixed crash when .orth_regressors == 1 in a multisession analysis.
+
+2013-11-04 (v3.4e)*: (dfa)
+ Bugfix: (bug introduced in v3.4d) This bug could cause a crash in
+ the display script if there was no contrast of interest in SPM.mat
+
+2013-10-21 (v3.4d): (dfa)
+ Now display on the bottom right of the final image the effective number 
+  of "task" and "rest" scans remaining in the displayed contrast after 
+  motion rejection regressors are taken into account. 
+  See also iBT.what.disp.show.mrej (default is enabled for existing 
+  runinfo files).
+  
+ Bugfix: (This bug was introduced in version 3.4a on 1st October 2013). 
+  If a cluster-corrected image was requested but the threshold was Inf 
+  (i.e. no significant clusters) the display script would write the 
+  correct zero-length indicator file to tell the user there were no
+  clusters (a file named of the form "kthreshFor_spmT*=Inf"); however it
+  then incorrectly proceeded to regenerate and overwrite the previously 
+  displayed contrast with a version with the wrong contrast name. If
+  affected, you can simply re-run the display portion of the runinfo for 
+  the FDRc and/or FWEc thresholds to repair the "slices*.png" files.
+
+2013-10-18 (v3.4c): (dfa)
+ Simpler display of results generated outside of the toolbox via 
+   new iBT.what.disp.OTHER.do & iBT.who.sub{sub}.sess{ses}.disp.loc 
+   (replaces iBT.what.disp.RFX.do & iBT.who.sub{sub}.sess{ses}.RFX.loc)
+   and new runinfo_other_display_template.m
+ Supply a template _header_info.txt file (usually automatically 
+   generated by iBrain)
+
+2013-10-04 (v3.4b)*: (dfa)
+ Support selection and sequential execution of multiple runinfo files.
+ New iBT.what.stats.extra_con to more conveniently create extra contrast
+    combinations that automatically take into account confound columns.
+ New iBT.what.disp.con to restrict display to specified contrast numbers.
+ New iBT.what.disp.show.conName and iBT.what.disp.fontsize
+ Warn if try to display at p-value or corrected thresholds for 
+   contrast filenames manually specified in iBT.what.disp.contrast,
+   since can only obtain such details from SPM.mat if we know the
+   contrast number (which is only the case for 'auto').
+ Bugfix: Fixed contrast labels for multisession studies.
+ 
+2013-10-01 (v3.4a): (dfa)
+ Support generation of FWEc and FDRc cluster-size thresholded images
+   See an updated runinfo template for details. Note this is presently 
+   limited to one-tailed t-tests at 0.05 corrected, as per SPM generally.
+   
+ Extend logging of motion rejection information to
+   every regressor of interest (not just the first).
+   Fixed a related crash that occurred when attempting
+   to obtain rejection info for multi-session designs.
+ Bugfix: when creating displayed images, use li threshold
+   pertaining to relevant contrast (previously just used 
+   the li threshold from the subject's 1st contrast)
+ Bugfix: li file not found if only display at an li threshold.
+  
+2013-09-26 (v3.4): (dfa)
+ Added ability to do additional post-stats processing via a
+   customisable script - see iBT_custom_stats.m
+ Check for consistent image orientation in laterality routines.
+ Added additional options for laterality plots.
+ Simplified specification of masking options in runinfo.
+ New iBT.what.disp.copyHeaderInfo (default enabled except for
+   RFX and ICA). With copyHeaderInfo and copyStructural enabled it
+   should now be possible to re-display stats in future with 
+   different display options even if the pre-processing folder 
+   is deleted.
+ Support wildcards in iBT.what.disp.contrast.
+ New option iBT.what.disp.contrastMissingOK to allow display script to
+    continue rather than stop if a contrast is not found for an individual.
+ Display routine is now more efficient (faster).
+ Bugfix: Severe image field of view truncation could occur when
+   performing multi-session intra-subject-normalisation (this
+   problem became evident if the subject's head position in the scanner 
+   was substantially different in the final session compared to the 
+   master (usually 1st) session).
+ Bugfix: Crash when cleaning up after own-space analysis, and failure
+   to clean up files when '?' wildcard characters in filespec.
+  
+2013-04-28 (v3.3f): (dfa) Added -f 0.4 to BET options in runinfo files
+   in attempt to avoid holes in EPI masks.
+ Support iBT.what.disp.copyStructural (default enabled except for RFX and ICA)
+ 		  
+2013-04-05 (v3.3e): (dfa) Support in-plane only realignment 
+			  (iBT.what.pre.Realign == 2)
+
+2013-03-26 (v3.3d)*: (dfa) Fixed old runinfo compatibility with v3.3b
+ and improved BET compatibility for various GNU/Linux platforms (if bet
+ does not work at your site, try customising iBT_BET)
+
+2013-03-15 (v3.3c): (dfa) Removed some obsolete (non-functional) code.
+
+2013-03-04 (v3.3b): (dfa) 
+ Support iBT.what.pre.interleaved = 4 (more flexible option suitable 
+   for Siemens DICOM Mosaic files) and some descending slice order options. 
+ Support iBT.what.pre.slice_time_extra_gap
+ Added logging of inter-slice time spacing
+ Fixed reference slice used when iBT.what.pre.target_time is set to 'first' and
+   iBT.what.pre.interleaved is 3 (bug introduced 2013-02-19).
+
+2013-02-21 (v3.3a): (dfa) Fixed a typo setting iBT.what.pre.wild.realign
+
+2013-02-20 (v3.3): (dfa) 
+ In new runinfo template files:
+   The default scan to scan motion rejection is 0.5mm (was 1mm)
+   The default display threshold is p<0.001 (was t>3.1).
+   Corrected iBT.what.pre.wild.realign if no slice timing
+ Support iBT.what.pre.interleaved = 3 (interleaving with second
+     slice position acquired first, as is the case for Siemens DICOM Mosaic
+     files when the total number of slices acquired is even). Also improved
+     documentation of all interleaving options.
+ Added iBT.what.disp.threshold.type which now permits thresholding by 
+     uncorrected or FWE-corrected p-value.
+ Added ability to call BET to create a within-brain mask on GNU/Linux platforms.
+   ( iBT.what.pre.Create_r_BETwithinBrainMask and  
+     iBT.what.pre.Create_n_BETwithinBrainMask )
+     See also http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/BET
+     This may yield a better quality mask than iBrain's iterative
+     intensity threshold method, particularly for scans that have
+     relatively high scalp signal.
+ Added iBT.what.stats.mc.rejN (previously hard-coded to 4)
+ Added iBT.what.disp.threshold.write_t_value_file to create a zero-length
+     indicator file showing the t-value equivalent for the specified display
+     p-value threshold (some iBrain functions can make use of this).  
+
+2013-01-25 (v3.2a): (dfa) 
+ More information logged regarding motion rejection, including number of task
+   and rest scans. The following two commands can retrieve summary details and
+   the data folder they apply to from the log file:
+	grep "motion rejection" matlab_iBT_analysis-DATETIME.log
+	grep "Analysis directory" matlab_iBT_analysis-DATETIME.log
+ Enabled contrast generation when configureDesign already done
+
+2012-11-06 (v3.2): (dfa) 
+ Added options to display to control resampling and destination folder.
+ If a source-weighted-image (SWI) was created on an image other than the mean
+   of the present run, then can now specify the original image and 
+   coregistration will be used to determine a transform between the two spaces;
+   this is then applied to the SWI to derive a version in the correct space for
+   the present analysis.
+ Commenced adding display options for SOCK (presently in-house).
+ Bugfix: bandpass filtering was not being applied to second and subsequent
+   sessions in a multi-session functional connectivity analysis.
+   
+2012-04-05 (v3.1d)*: (dfa) Fixed a typo that caused a crash in runinfo.
+
+2012-04-04 (v3.1c): (dfa) Log the number of scans rejected due to motion.
+                    (dfa) For functional connectivity, automatically default
+		            iBT.what.stats.orth_regressors = 2 in runinfo.
+			    and generate contrasts when what.stats.event_con=1
+			    
+2012-03-12 (v3.1b)*: (dfa) Record toolbox version in log files.
+
+2012-03-05 (v3.1a): (dfa) 
+  Work around a bug in SPM8 r4667 which prevented the toolbox displaying
+    sagittal slices.
+  Added iBT.who.sub{}.sess{}.RFX.loc
+
+2012-02-16 (v3.1): (dfa)
+ Added support for ROI_mask(s) from which to automatically extract
+   timecourse(s) of interest for functional connectivity and added new
+   iBT.who.sub{sub}.sess{ses}.ROI_loc to specify where ROI and confound
+   files are to be found.
+ Permit confound timecourses (no matter how specified) to be used in any sort
+   of analysis (not just functional connectivity)
+ Fixed functional connectivity confound mask and seed co-ordinate for multiple
+   sessions was always using that of first session.
+ Improved preprocessing iBT.what.pre.sessions_together == 1 (save individual 
+   session realignment parameters and masks to each session folder as required
+   later for stats)
+ Updated documentation in runinfo files.
+ Add additional options in iBT_laterality_graph including documenting
+   a semi-automated method for comparing two groups of LI distributions.
+ Work around a bug in some older versions of Matlab that had jbtest of a flat
+   distribution incorrectly returning 0 or crashing in group laterality 
+   calculation.
+ Fixed problems in iBT_stats if events specified as occurring prior to
+   or after the scans analysed. If these occur, they are either removed or truncated.
+ Also a few other minor improvements.
+ 
+2011-10-18 (v3.0c): (dfa) Fix wildcard support in iBT.what.disp.structural.
+		    Remove a debug breakpoint left in v3.0b
+2011-10-14 (v3.0b)*: (dfa) Improved compatibility with old (pre v3.0) 
+		  runinfo files
+2011-10-12: (dfa) Honour absolute path in iBT.what.disp.structural
+2011-09-30: (dfa) Fixed iBrain.m finding the iBrain installation if 
+                  iBrain is installed in various non-standard locations.
+2011-09-22: (dfa) Added option to tidy up within-brain mask a bit more 
+		  using MILXView from CSIRO (for those that have it) 
+		  (iBT.what.pre.Create_n_iBrainWithinBrainMask = 2)
+2011-09-20 (v3.0a)*: (dfa) Fixed a bug that would result in a crash if
+		  set iBT.what.pre.norm.intra.do = 2 (affine) although
+		  this is an unusual value to select; normally you would
+		  want to set it to 0 (no) or 1 (non-linear warping,
+		  which can help if sessions have different distortions).
+2011-09-19: (dfa) Fixed a bug with contrast names (was including a label
+		  from confounds rather than contrasts of interest)
+		  (bug introduced in v3.0) 
+		  Fixed possible crash when sorting onset & duration files.
+2011-09-12: (dfa) Fixed typo exists -> exist in pre-processing that 
+		  caused a crash if checking for existing header file.
+		  (bug introduced in v3.0) 
+2011.09.05 (v3.0)*: (dfa) Public release of version 3.0 release 2011.09.05

@@ -1,0 +1,32 @@
+% Changelog for runinfo_fMRIPrep_own_template.m
+%
+% 2024-06-23 - dfa: Replaced iBT.what.disp.revflip with 
+%                     iBT.what.disp.orient.LeftOnRight
+% 2024-06-20 - dfa: Removed long deprecated/ignored iBT.what.disp.revOrder
+%                     (see iBT.what.disp.orient.slices instead)
+%                   Added iBT.what.disp.orient.showText
+% 2020-11-09 - dfa: Added iBT.what.disp.structuralLabel
+% 2020-11-07 - dfa: Added iBT.what.disp.threshold.structural.low & high
+%                   Added iBT.what.disp.threshold.structural.min & max
+% 2020-05-24 - dfa: Added iBT.what.disp.show.voxelSize (default 1 = yes) 
+%                   to allow this to be turned off if desired.
+% 2018-09-19 - dfa: Added iBT.what.SPM.ext, iBT.what.FSL.ext 
+%			& iBT.what.iB.ext(image filename extensions)
+% 2018-01-02 - dfa: Updated some comments
+% 2017-12-23 - dfa: Change default SPM prefer version to SPM12 
+% 2017-06-02 - dfa: Rewrote the studylist reading code to support comments, 
+%		     quoted filenames, extra fields (ignored) and
+%                    auto-detected line-specific field count.
+% 2014-01-13 - dfa: New iBT.what.disp.ROI for semi-transparent ROI overlay.
+% 2014-01-10 - dfa: New iBT.what.disp.invert
+% 2013-11-15 - dfa: New iBT.what.disp.together to permit generation of
+%		    both pos/neg images and pos &/or neg only in one go
+%		    (separates will now have sign added to filename).
+% 2013-11-03 - dfa: Set iBT.what.disp.show.mrej to 0 as there is most likely 
+%		    no motion rejection associated with non-iBrain results.
+% 2013-10-22 - dfa: Cut-down runinfo for display of manually generated results.
+%
+% 2004-2011: iBT analysis scripts were developed by David Abbott based
+%            upon the who & what structure concept of Tony Waites, with 
+%            substantial contributions from Matt Harvey, Kaushik Bhaganagarapu,
+%            Richard Masterton and some assistance from Mark Griffin.

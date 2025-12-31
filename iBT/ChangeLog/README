@@ -1,0 +1,8 @@
+
+For a summary of iBT changes, please see ../whats_new.txt
+
+Files in the ChangeLog folder include a detailed history of runinfo template
+files, which may be useful for users upgrading from previous versions of iBT.
+
+Note that we aim to achieve backwards compatibility with earlier runinfo files, so old runinfos should still work.
+

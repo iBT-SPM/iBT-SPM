@@ -1,0 +1,9 @@
+SUB_ID1 1 /data/mri/studyfolder/session1 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session1 OLR 11 90 
+SUB_ID1 0 /data/mri/studyfolder/session2 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session2 OLR 11 90 
+SUB_ID1 0 /data/mri/studyfolder/session3 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session3 OLR 11 90 
+SUB_ID2 1 /data/mri/studyfolder/session1 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session1 OLR 11 90 
+SUB_ID2 0 /data/mri/studyfolder/session2 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session2 OLR 11 90 
+SUB_ID2 0 /data/mri/studyfolder/session3 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session3 OLR 11 90 
+SUB_ID3 0 /data/mri/studyfolder/session1 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session1 OLR 11 90 
+SUB_ID3 1 /data/mri/studyfolder/session2 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session2 OLR 11 90 
+SUB_ID3 0 /data/mri/studyfolder/session3 /data/studyname/data_spm12_warp2EPI_8mm/studyfolder/session3 OLR 11 90 

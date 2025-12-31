@@ -1,0 +1,6 @@
+GROUP_ID1 /analysis/SPM12_stats/RFX/session1 Initial
+GROUP_ID1 /analysis/SPM12_stats/RFX/session2 Repeat
+GROUP_ID2 /analysis/SPM12_stats/RFX/session1 Initial
+GROUP_ID2 /analysis/SPM12_stats/RFX/session2 Repeat
+GROUP_ID3 /analysis/SPM12_stats/RFX/session1 Initial
+GROUP_ID3 /analysis/SPM12_stats/RFX/session2 Repeat

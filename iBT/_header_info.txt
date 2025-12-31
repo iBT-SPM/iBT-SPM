@@ -1,0 +1,30 @@
+Info_version=
+2.2
+-------------------------------------------------
+This data is normally obtained by iBrain from an original image
+-------------------------------------------------
+Image filename:Unknown
+Original file format:Unknown
+read by iBrain version:0
+iBrain(TM) standard header output version:1.1
+Subject name:Unknown
+Subject ID:Unknown
+Study date (yyyy-mm-dd):0000-00-00
+Study Number:
+Study Description:
+Series Description:
+TR(s):?
+Voxel size X (mm):?
+Voxel size Y (mm):?
+Voxel size Z (mm):?
+Slice thickness:?
+Slice gap:?
+-------------------------------------------------
+This data is normally supplied during processing by iBT
+-------------------------------------------------
+iBT_version:? (data manually entered)
+SPM_version:? (data manually entered)
+r_smth:?
+n_smth:?
+n_template:?
+n_iterations:?

@@ -1,0 +1,51 @@
+% Changelog for runinfo_li_template.m
+%
+% 2024-10-26 - dfa:
+%   Move changelog out of the runinfo into a separate file.
+%   Rearranged some options so grouped more harmoniously.
+%   Added some commented-out colour options set to monochrome values
+%     to allow easy selection of monochrome by uncommenting.
+% 2020-06-08 - dfa:
+%   Added iBT.what.li.LineWidth.Default
+%   Added iBT.what.li.LineWidth.Individual
+%   Capitalised iBT.what.li.SummaryPlot.LineWidth.Default
+%   Replaced *fullPlotAllY and *summaryPlotAllY
+%     with *.FullPlot.* & *.SummaryPlot.* versions
+% 2020-05-24 - dfa: 
+%   Added some new and more flexible LI colour and line style
+%   options iBT.what.li.*.RGB* and iBT.what.li.*.LineStyle*
+%   Added iBT.what.li.SummaryPlot.LineWidth.Default
+%   Added iBT.what.li.SummaryPlot.LIpoint & .LineWidth.LIpoint
+%   Added iBT.what.li.SummaryPlot.typicalString, atypicalString
+%   so can customise (including blanking) the plot conclusion.
+%   Added iBT.what.li.SummaryPlot.show100
+%   Improved display formating of LI summary result text
+%   REMOVED retired fields: iBT.what.li.GroupMeanColour, 
+%           .GroupControlsColour and  .IndividualColour
+% 2018-01-02 - dfa: Updated some comments
+% 2017-12-23 - dfa: Change default SPM prefer version to SPM12 
+% 2017-06-02 - dfa: Rewrote the studylist reading code to support comments, 
+%		     quoted filenames, extra fields (ignored) and
+%                    auto-detected line-specific field count.
+% 2014-07-02 - dfa: Added iBT.what.li.lowNpercentOffCeiling, ceiling and jb_alpha
+% 2013-11-14 - dfa: Support SPM12, where spmT's are .nii files.
+% 2013-06-01 - dfa: Added option to override plot title and box border
+% 2011-09-01 - dfa: Version 1.1 - Updated for public release in the iBrain
+%                     Analysis Toolbox for SPM. 
+%                   Introduced iBT structure to avoid conflict
+%                     with Matlab's inbuilt what and who commands.
+% 2011-01-12 - dfa: Use new calling procedure to set SPM defaults as recommended
+%                     in spm8_r4010 update.
+% 2010-09-21 - dfa: Added what.li.conclusion.do (defaults to 1 if not specified)
+% 2010-08-10 - dfa: Added what.li.reuse_existing
+% 2010-07-16 - dfa: Added what.li.save.thresh, and 
+%                     what.disp.threshold.thresh = {-1} to use it.
+%                   Changed default what.li.wild to 'spmT_????.img' 
+%                     ( was 'spmT_*.img' )
+% 2010-03-25 - dfa: Updated some comments. Added more options to
+%                     summary_plot_in_range_only
+%              Added what.li.li_only, what.li.summary_plot_lower_range_fraction
+%                     and summary_plot_upper_range_fraction
+% 2010-02-25 - dfa: Added what.li.fullPlotAllY & what.li.summaryPlotAllY
+% 2010-03-23 - dfa: Version 1.0 - Public release in iBrain Laterality Toolbox.
+%

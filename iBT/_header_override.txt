@@ -1,0 +1,27 @@
+Header_override_version:1.0
+#Subject name:correct name
+#Subject ID:newID
+#Study Number:00000
+#Study Description:whatever
+#Series Description:something
+#
+# Comments begin with a #
+# Use a file of this format if one or more of the above items is incorrect in
+# image headers. Uncomment lines above that you need to override.
+# Some image processing scripts currently in use at BRI look for a
+# _header_override.txt file and, if it exists, use it to override certain values
+# read directly from the image header. This file should be placed in the
+# same subdirectory as the affected original images (e.g. each subdirectory of
+# the affected run for functional GE vp-signa workstation images). Please
+# ask a person with permission to add to the image archive to do this for you.
+# Pre-processing scripts will then automatically copy this to the processed
+# data directory. If you are accessing original data from read-only media, then
+# you will need to place this file manually in the processed data directory
+# for each analysis that you perform on the affected data.
+#
+# Please also fill out the comments below to record the reason for the override:
+# Override file created by:
+# On date:
+# Reason for override (including details of any validation or evidence to 
+# support validity of the override):
+#

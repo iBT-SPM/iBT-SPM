@@ -1,0 +1,17 @@
+The @slover folder here is a complete copy of that from SPM8_r4667 except 
+for fill_defaults.m which is from SPM8_r4290. This avoids a bug in the public
+SPM8 release r4667 (bug first introduced in private release r4341). 
+
+Specifically, an incorrect spelling of sagittal was "corrected" on line 57 of
+@slover/fill_defaults, however the particular instance was supposed to be
+incorrect to allow the user to misspell the word. Unfortunately the change to
+the "correct" spelling in that find statement cases two matches to sagittal,
+which in turn casues a crash on line 68 because orientn has two elements 
+rather than one.
+
+We seem to need the whole @slover folder (rather than just having the 
+good fill_defaults.m somewhere at the front of the path) because slover 
+is a class and therefore its functions are local in scope.
+
+
+-dfa, 2012-03-05.

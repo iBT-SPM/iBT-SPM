@@ -1,0 +1,195 @@
+% General changelog for runinfo_[own,normlegacy]_*_template.m and runinfo_fMRIPrep_*_template.m
+%
+% 2025-12-28 - dfa: Added iBT.who.sub{sub}.sess{ses}.wild.[r,n]_inputAnat,
+%     iBT.what.disp.output_subfolder, iBT.what.stats.clobber, and various 
+%     other improvements.
+% 2025-10-25 - dfa: Updated "see also" documentation for 'FAST' algorithm.
+%   Removed iBT.what.stats.r_ExplicitMask.wild and
+%    iBT.what.stats.n_ExplicitMask.wild variables, as the more flexible
+%    iBT.who.sub{sub}.sess{ses}.wild.*_ExplicitMask variables are more
+%    appropriate for fMRIPrep (where multiple sessions can exist in the one
+%    folder).
+% 2025-09-18 - dfa: Added missing iBT.what.stats.denoised.adjust_erdf
+% 2024-10-30 - dfa: Added option iBT.what.li.lowNpercentValid
+% 2024-10-27 - dfa: Added 'Explicit' option to iBT.what.stats.r_withinBrainMask
+%     and iBT.what.stats.n_withinBrainMask to then utilise session-specific
+%     explicit mask wildcards specified in 
+%       iBT.who.sub{sub}.sess{ses}.wild.r_ExplicitMask or
+%       iBT.who.sub{sub}.sess{ses}.wild.n_ExplicitMask respectively.
+% 2024-10-26 - dfa: Added iBT.what.pre.header_info = 3 option
+%                   for reading TR from JSON, rather than calling
+%                   a function from within the runinfo.
+%                   Some minor improvement to documentation.
+% 2024-09-07 - dfa: Added iBT.what.disp.show.procVoxelSize
+% 2024-08-04 - dfa: Restored sagittal display order to left 1st top
+%                    (via iBT.what.disp.orient.slices, needed
+%                     for iBT versions since 2024-06-22).
+%                   Added iBT.what.disp.orient.AnteriorOnRight (default 'no')
+% 2024-07-30 - mfb: Replaced iBT.what.stats.configureDesign with
+%                   iBT.what.stats.design.configure, and add new
+%                   iBT.what.stats.design.savePreliminaryFig
+% 2024-07-11 - mfb: Added orthogonalisation option 4.1 
+%                  (like 4, but skip block constant) 
+%              mfb,dfa: Clarified orthogonalisation options
+%                   are in addition to SPM's automatic
+%                   delay and dispersion orthogonalisation.
+% 2024-06-25 - dfa: The runinfo_fMRIPrep_*_templates are adapted for public 
+%     release from runinfo_AEP_1_own_PR202_iBm.m from 2022-04-02
+%     plus calling Aaron Capon's code to read TR from json sidecar,
+%     and the following added features by dfa:
+%   Use subject and session specific wildcards:
+% 	  iBT.who.sub{sub}.sess{ses}.wild.* , replacing global equivalents.
+%   Move changelog out of the runinfo into a separate file.
+%   2024-06-23 - dfa: Replaced iBT.what.disp.revflip with 
+%                     iBT.what.disp.orient.LeftOnRight
+%   2024-06-20 - dfa: Removed long deprecated/ignored iBT.what.disp.revOrder
+%                     (see iBT.what.disp.orient.slices instead)
+%                     Added iBT.what.disp.orient.showText
+%   2024-02-07 - dfa: Added orthogonalisation option 2.1 
+%                  (like 2, but skip very last regressor)
+%
+% 2021-07-20 - dfa: Clear some internal variables before begining that can be
+%     either scalar or cell, to avoid potential interference from previous
+%     jobs in this MATLAB session
+% 2021-06-10 - dfa: Support iBT.what.stats.Confounds_fmriprep.do ,
+%       iBT.who.sub{sub}.sess{ses}.Confounds_fmriprep ,
+%   and iBT.who.sub{sub}.sess{ses}.fmriprep.wild
+%   Change default suffix of fmriprep regressors file to 
+%     also permit new confounds_timeseries.tsv nomenclature.
+% 2021-01-30 - dfa: Added iBT.who.sub{sub}.sess{ses}.heights
+%                   Added iBT.who.sub{sub}.sess{ses}.height_files
+%    To avoid confusion now that parametric modulation by heights
+%    is supported, renamed old iBT.what.stats.parametric_modulation
+%    to iBT.what.stats.parametric_modulation_by_separation
+% 2020-11-30 - dfa: Replaced iBT.what.stats.onset_dur_type 
+%                       with iBT.what.stats.events.source
+% 2020-11-09 - dfa: Added iBT.what.disp.structuralLabel
+% 2020-11-07 - dfa: Added iBT.what.disp.threshold.structural.low & high
+%                   Added iBT.what.disp.threshold.structural.min & max
+% 2020-11-06 - dfa: Added iBT.what.pre.norm.do = 3 (rigid-body)
+%                   Added iBT.what.pre.norm.tempLabel
+% 2020-09-09 - dfa: More flexible foldername sub-ID where ID can be anything
+% 2020-06-18 - dfa: Alterations to slice display range and LI summary plot
+% 2020-06-08 - dfa:
+%   Added iBT.what.disp.show.LR
+%   Improve laterality plot colours for the Australian Epilepsy Project (AEP)
+%   Added iBT.what.li.LineWidth.Default
+%   Added iBT.what.li.LineWidth.Individual
+%   Capitalised iBT.what.li.SummaryPlot.LineWidth.Default
+%   Replaced *fullPlotAllY and *summaryPlotAllY
+%     with *.FullPlot.* & *.SummaryPlot.* versions
+% 2020-05-24 - dfa: Added iBT.what.stats.mc.metric = 'FramewiseDisplacement' 
+% 2020-05-21 - dfa: Added iBT.what.pre.fmriprep.done
+% 2020-05-19 - dfa: Added iBT.what.stats.mc.fmriprep 
+% 2020-05-18 - dfa: Added iBT.what.li.SummaryPlot.LIpoint and 
+%                       iBT.what.li.SummaryPlot.RGB.LIpoint
+% 2020-04-30 - dfa: Added iBT.what.li.SummaryPlot.show100
+% 2020-04-29 - dfa: Customise laterality plot colours for AEP
+% 2020-04-27 - dfa: Added iBT.what.li.SummaryPlot.GroupMeanRGB and
+%		      iBT.what.li.SummaryPlot.GroupMeanLineStyle
+% 2020-04-19 - dfa: Added iBT.what.li.own.do & iBT.what.li.norm.do
+%                   Added iBT.what.li.SummaryPlot.[a]typicalString
+% 2020-04-18 - dfa: Added iBT.what.pre.FSLsplit
+% 2020-04-09 - dfa: Use iBT.what.pre.wild.input rather than ...wild.DICOM
+% 2019-01-29 - dfa: Fixed a typo in value of denoised_pick_adjustment 
+%			that caused stats to halt. 
+% 2019-01-04 - dfa: Added iBT.what.stats.MAT64bit. Change default slice  
+%		    timing target to middle slice
+%		    ( see iBT.what.pre.target_time, iBT.what.stats.SPM.xBF.T0 )
+% 2018-09-25 - dfa: Added iBT.what.stats.denoised.adjust_erdf
+% 2018-09-19 - dfa: Added iBT.what.pre.mean
+% 2018-09-19 - dfa: Added iBT.what.SPM.ext, iBT.what.FSL.ext 
+%			& iBT.what.iB.ext(image filename extensions)
+% 2018-09-19 - dfa: Document support for 
+%		     iBT.who.sub{sub}.sess{ses}.denoised_pick_adjustment
+% 2018-01-02 - dfa: Updated some comments, including that 'FAST' intrinsic 
+%                   autocorrelation option may be suitable for multiband fMRI.
+% 2017-12-23 - dfa: Change default SPM prefer version to SPM12 
+% 2017-10-30 - dfa: Updated website reference to florey.edu.au/imaging-software
+% 2017-05-31 - dfa: Rewrote the studylist reading code to support comments, 
+%		     quoted filenames, SOCK_wildcard and
+%                    auto-detected line-specific field count.
+% 2016-08-18 - dfa: Document explicit slice-time support (SPM12 and later only)
+% 2016-05-30 - dfa: If iBT.what.pre.Realign == 0, set iBT.what.stats.mc.mp = 0
+% 2016-04-27 - dfa: Update institute name in copyright notice
+% 2015-11-11 - dfa: Add iBT.what.stats.denoised.SOCK.adjust_erdf
+% 2014-07-03 - dfa: Added support for analysing SOCK filtered images via
+%		     iBT.what.stats.denoised.do, .folder, & .n_wild
+%		    and new laterality options:
+%		     iBT.what.li.lowNpercentOffCeiling, ceiling & jb_alpha
+% 2014-02-24 - dfa: Fixed a typographical error in iBT.what.disp.threshold.type
+%                   that appeared only in runinfo_Siemens_template.m
+% 2014-01-13 - dfa: New iBT.what.disp.ROI for semi-transparent ROI overlay.
+% 2014-01-10 - dfa: New iBT.what.disp.invert
+% 2013-11-15 - dfa: Added a 4th option to iBT.what.stats.orth_regressors.
+% 		    Support SPM12b (only in legacy "old normalisation" mode 
+%                    so presently no advantage over SPM8).
+% 		    Added iBT.what.disp.together to permit generation of
+%		     both pos/neg images and pos &/or neg only in one go
+%		     (separates will now have sign added to filename).
+%		    Added iBT.what.disp.contrast = '-effect' option
+% 2013-10-22 - dfa: New iBT.what.disp.show.mrej
+% 2013-10-18 - dfa: New iBT.what.disp.OTHER replaces iBT.what.disp.RFX
+% 2013-10-04 - dfa: New iBT.what.disp.fontsize options and iBT.what.disp.con 
+% 2013-10-03 - dfa: New iBT.what.stats.extra_con & iBT.what.disp.show.conName 
+% 2013-10-01 - dfa: Support generation of FWEc and FDRc cluster-size thresholded %                   images.
+% 2013-09-23 - dfa: New iBT.what.disp.contrastMissingOK
+% 2013-09-09 - dfa: New iBT.what.custom_stats.do
+% 2013-08-09 - dfa: New iBT.what.disp.copyHeaderInfo
+% 2013-08-07 - dfa: Replaced r_withinBrainMask_prefix with iBT.what.stats.r_withinBrainMask
+%		    Replaced n_withinBrainMask_prefix with iBT.what.stats.n_withinBrainMask
+%		    Moved Matlab code to determine mask filename out of runinfo
+%		    (preserving the ability to override in runinfo).
+% 2013-06-01 - dfa  Added option to override laterality plot title, box border
+% 2013-04-28 - dfa: Added iBT.what.disp.copyStructural
+%		    Added -f 0.4 to suggested BET options
+% 2013-04-04 - dfa: Support 2D (in-plane) realignment (iBT.what.pre.Realign = 2)
+%		    Added comments regarding smoothing, swi's.
+% 2013-03-25 - dfa: Changed DICOM conversion default to use SPM routines.
+% 2013-03-15 - dfa: Added comments; removed obsolete iBT.what.disp.fewerSlices
+% 2013-03-04 - dfa: Set iBT.what.pre.slice_time_extra_gap = 0.009535
+%                   to suit the default TR=3.0, 44slice acquisition at BRI.
+% 2013-03-04 - dfa: Support iBT.what.pre.interleaved = 4, some descending
+%                   slice-order options, iBT.what.pre.slice_order and
+%		    iBT.what.pre.slice_time_extra_gap
+% 2013-02-21 - dfa: Fixed a typo setting iBT.what.pre.wild.realign 
+% 2013-02-20 - dfa: Added iBT.who.sub{sub}.sess{ses}.BETwithinBrainMask.create,
+% 		    iBT.what.pre.Create_n_BETwithinBrainMask,
+%		    r_withinBrainMask_prefix and n_withinBrainMask_prefix
+% 2013-02-19 - dfa: Support iBT.what.pre.interleaved = 3
+%		    Added iBT.what.disp.threshold.type which now permits
+%		     thresholding by uncorrected p-value and FWE corrected.
+% 		    Added iBT.what.stats.mc.rejN (previously hard-coded=4)
+% 		    Corrected iBT.what.pre.wild.realign if no slice timing
+%		    Added iBT.what.disp.threshold.write_t_value_file
+% 2013-01-25 - dfa: Add comment after iBT.what.stats.evalCons
+% 2012-09-11 - dfa: Added iBT.what.disp.resample
+% 2012-09-05 - dfa: Added iBT.what.disp.MELODIC.SOCK (presently in-house use)
+% 2012-08-26 - dfa: Added iBT.who.sub{sub}.sess{ses}.ImageSWIdrawnUpon
+% 2012-06-08 - dfa: Added iBT.what.disp.output_parent_folder 
+% 2012-05-04 - dfa: Removed obsolete RFX.loc code and a full-stop typo
+%                   that caused a crash.
+% 2012-04-04 - dfa: For functional connectivity, automatically 
+%		    set iBT.what.stats.orth_regressors = 2.
+% 2012-03-01 - dfa: Added iBT.who.sub{sub}.sess{ses}.RFX.loc
+%		   (takes precedence over iBT.what.disp.RFX.loc)
+% 2012-02-16 - dfa: Added iBT.who.sub{sub}.sess{ses}.ROI_loc
+% 2012-02-12 - dfa: Added iBT.who.sub{sub}.sess{ses}.ROI_mask,
+%		    iBT.what.stats.fc.ROI_mask_timecourse.do
+%		    and replaced by iBT.what.stats.fc.tc.do
+%		    with stats.fc.timecourse.do and 
+%		    stats.Confounds_timecourse.do
+%		    Improved documentation of iBT.what.pre.sessions_together
+%		    Added iBT.what.stats.configureDesign
+% 2011-12-01 - dfa: Fixed error in iBT.what.pre.wild.raw when SPM DICOM 
+%                   conversion already applied.
+% 2011-09-05 - dfa: Introduced iBT structure to avoid conflict with Matlab's
+%       inbuilt what and who commands. Enhanced iBrain server usage.
+%       Allowed manual TR specification (in case iBrain doesn't work
+%       for your images). Added option to avoid writing subject name to
+%       _header_info.txt. Updated comments and settings for public release.
+%
+% 2004-2011: iBrain analysis scripts were developed by David Abbott based
+%            upon the who & what structure concept of Tony Waites, with 
+%            substantial contributions from Matt Harvey, Kaushik Bhaganagarapu,
+%            Richard Masterton and some assistance from Mark Griffin.
