@@ -31,8 +31,8 @@ function [iBTversion,iBTrelease,iBTversionReleaseString,iBTversionReleaseSentenc
 % Recent Version History:
 % 2012-03-12: (dfa) Moved version info from iBT_start.
 
-iBTversion = '4.0';
-iBTrelease = '2025.12.30';
+iBTversion = '4.0.1';
+iBTrelease = '2026.01.03';
 
 iBTversionReleaseString = sprintf('%s (release %s)',iBTversion,iBTrelease);
 

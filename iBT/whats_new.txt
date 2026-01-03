@@ -9,6 +9,9 @@ Notes for users upgrading from iBT 3.x:
  - Old runinfo files remain compatible. However, we recommend using one of
    the new runinfo templates if you are setting up a new analysis.
 
+2026-01-03 (v4.0.1)*:(dfa): Bugfix: restore a line finding .wild.n_inputAnat
+   that had been accidentally deleted from iBT_preprocess.m
+
 2025-12-30 (v4.0)*:(dfa): 
 Added optional iBT.what.disp.output_subfolder
 Support locating and copying anatomy file from fMRIPrep
