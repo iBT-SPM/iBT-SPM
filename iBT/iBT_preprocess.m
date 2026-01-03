@@ -28,6 +28,7 @@ function iBT_preprocess(iBT)
 %___________________________________________________________________________
 %
 % Recent Version History:
+% 2026-01-03: (dfa)  Restore accidentally deleted line finding .n_inputAnat
 % 2025-12-28: (dfa)  Support locating and copying anatomy file from fMRIPrep
 %                    via new iBT.who.sub{sub}.sess{ses}.wild.[r,n]_inputAnat
 % 2025-11-04: (dfa)  Support option iBT.what.pre.DICOMconvert = 2, to have
@@ -597,7 +598,7 @@ for sub=1:nsub
       if look_for_r_anat == 1,
         % Copy (via fslsplit) related anatomical scan if we can find it in the usual place (../anat/)
         anat_rawloc = fullfile(iBT.who.sub{sub}.sess{ses}.rawloc,'..','anat');
-	anatFilename = iBT_get( anat_rawloc, [iBT.who.sub{sub}.sess{ses}.wild.r_inputAnat '*']); % extra * wildcard to allow for .gz
+        anatFilename = iBT_get( anat_rawloc, [iBT.who.sub{sub}.sess{ses}.wild.r_inputAnat '*']); % extra * wildcard to allow for .gz
         num_anat_files = size(anatFilename,1);
         if (num_anat_files) == 1,
           [dir,fname,ext] = fileparts(anatFilename);
@@ -615,7 +616,8 @@ for sub=1:nsub
       if look_for_n_anat == 1,
         % Copy (via fslsplit) related anatomical scan if we can find it in the usual place (../anat/)
         anat_rawloc = fullfile(iBT.who.sub{sub}.sess{ses}.rawloc,'..','anat');
-       num_anat_files = size(anatFilename,1);
+        anatFilename = iBT_get( anat_rawloc, [iBT.who.sub{sub}.sess{ses}.wild.n_inputAnat '*']); % extra * wildcard to allow for .gz
+        num_anat_files = size(anatFilename,1);
         if (num_anat_files) == 1,
           [dir,fname,ext] = fileparts(anatFilename);
           if strcmpi(deblank(ext),'.gz'), [dir,fname,ext] = fileparts(fname); end; % ext was .gz so need to do it again to get real .nii extension off
